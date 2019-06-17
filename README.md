@@ -2,7 +2,7 @@
 
 Below is a "brief" guide that introduces you to Pantheon.
 
-I encourage you to go through the Pantheon Documentation yourself, as it's rather comprehensive, and will give you a better understanding of how it works than I can explain here. Pantheon is not a traditional shared web hosting service, so there is a bit of a learning curve. Have your developer review the documentation to learn more about how the system works.
+I encourage your developer to read the Pantheon Documentation, as it's rather comprehensive. Pantheon is not a traditional shared web hosting service, so there is a bit of a learning curve.
 
 - [Pantheon Documentation](https://pantheon.io/docs/)
 - [Quick Start](https://pantheon.io/docs/guides/quickstart/)
@@ -15,20 +15,20 @@ I encourage you to go through the Pantheon Documentation yourself, as it's rathe
 
 ## Pantheon Account Setup
 
-In order to access the hosting environment for the Damar website, you will need an account for your develper on our hosting platform: Pantheon.
+In order to access the hosting environment for the website, you will need an account for your develper on our hosting platform: Pantheon.
 
-- We will need to create a developer account for you in order to access the hosting database. If your developer doesn't have one yet, please contact us.
-- You will need to create a `SSH Key` if you haven't done so already and add it to your Pantheon account profile in order to connect to the website via Git or SFTP.
+- We will need to create a developer account for you in order to access the hosting database. If your developer doesn't have one yet, please contact us. We will send an invite.
+- You will need to [create a SSH Key](https://pantheon.io/docs/ssh-keys/) if you haven't done so already and add it to your Pantheon account profile in order to connect to the website via Git or SFTP.
 
 Once your account is created, you will have full adminstrative control of the website.
 
-## Introduction to Pantheon
+## Pantheon Concepts
 
 Pantheon is unlike a traditional web host in that it isn't a shared hosting platform. It's more akin to what you'd find on Github. Each Pantheon website consists of a `Development`, `Test`, and `Live` branch of the website. Each of these branches has an entirely isolated filesystem and database. So don't think of them as being connected, but rather clones of each other.
 
 The Pantheon workflow is also rather unique, as you are unable to write to new or existing files on the Test or Live branches of the website. This means that you can't upload plugins or make changes to template or theme files directly on the Live site. You'll notice this is reflected in the Wordpress Dashboard, as certain options are removed, such as the `Theme Editor`, or the `Add New Plugin` button. However, once you work on the Dev branch, you'll notice all of these options are back in place where you'd expect them. Wordpress websites on Pantheon have custom plugins running in the background that help accomplish features like this.
 
-## Pantheon Branches
+### Pantheon Branches
 
 Most of the time, your developer be working on the `Live` branch of the website. This is the branch of the website that external users visit, and it is also the branch that all the employees/staff/users login to in order to add and edit new content. The `Test` and `Dev` branches are used only for developers and/or system administrators. Here are the URLs for the dashboard and branches:
 
@@ -65,7 +65,7 @@ The site must be in Git mode in order to apply these updates. We recommend follo
 
 Once all your file edits are complete and committed, you're ready to move the files and database from `Dev`->`Test`->`Live` and complete the operation.
 
-## Concept: Cloning Dev to Test to Live
+## Cloning the Branches
 
 A crucial concept to understand is that we need to move the database and files from `Dev`->`Test`->`Live` once we're finished committing our changes to the `Dev` branch.
 
