@@ -35,7 +35,7 @@ Most of the time, people will be working on the `Live` branch of the website. Th
 - [Pantheon Dashboard](http://dev-websitename.pantheonsite.io/)
 - Dev Branch Exmaple: `dev-websitename.pantheonsite.io`
 - Test Branch Exmaple: `test-websitename.pantheonsite.io`
-- Live Branch Exmaple: `www.websitename.org`
+- Live Branch Exmaple: `www.websitename.com`
 
 `websitename` will be replaced with the name of your website, and is used as a placeholder in this documentation.
 
@@ -53,27 +53,27 @@ In order to do this, make sure you're on the `Dev` tab in the dashboard:
 6. The `Convert URLs Protocol to` dropdown should be left as-is (no conversion).
 7. Once all the options are set, click `Clone the Database and the Files from Live into the Development Environment`.
 
-This may take 30s-1min to work. If you click the `Workflows` tab near the top right of the screen, you can see progress bars for this operation. Once it is complete, you have the most up-to-date copy of the `Live` site cloned to the `Dev` branch. The sites should look and operate identically if this was done correctly.
+This may take 30s-1min to work. If you click the `Workflows` button near the top right of the screen, you can see progress bars for this operation. Once it is complete, you have the most up-to-date copy of the `Live` site cloned to the `Dev` branch. The sites should look and operate identically if this was done correctly.
 
-At this point, you can upload new plugins to the site via SFTP. Or, you can add them directly through the Plugins tab in the Wordpress dashboard. Once you've added or edited new files, they will show up under the `Code` tab under the `Dev` branch. You will need to make a commit message, and the commit these files.
+At this point, you can upload new plugins to the site via SFTP. Or you can add them directly through the Plugins tab in the Wordpress dashboard. Once you've added or edited new files, they will show up under the `Code` tab under the `Dev` branch. You will need to make a commit message, and the commit these files.
 
-Or if you prefer, you can clone the site using Git (always run a Git pull before starting new work or adding new files to ensure your local clone has the latest files downloaded). Once you're done, just commit and push the files to master.
+Or if you prefer, you can clone the site using Git (always run a `git pull` before starting new work or adding new files to ensure your local clone has the latest files downloaded). Once you're done, just commit and push the files to master.
 
 ### Applying Upstream Updates
 
 Whenever Wordpress has a version update, or Pantheon updates some code for the server (such as the PHP version), these will need to be applied in the `Dev` branch.
 
-The site must be in Git mode in order to apply these updates. We recommend following the steps above to clone the latest database and files from the `Live` site, committing those changes, and then switching the site to `Git` mode and applying those updates.
+The site must be in Git mode in order to apply these updates. We recommend following the steps above to clone the latest database and files from the `Live` site, committing any plugin/file changes you're working on, and then switching the site to `Git` mode and applying those updates. **Make sure** `Auto-resolve conflicts. This attempts to automatically resolve conflicts in favor of the upstream Git repository. If you are not patching core, this is safe to use.` is checked when you do this.
 
-Once all your file edits are complete and committed, you're ready to move the files and database from `Dev`->`Test`->`Live` and complete the operation.
+Once all your file edits are complete and committed, you're ready to clone the files and database from `Dev`->`Test`->`Live`.
 
 ## Cloning the Branches
 
-A crucial concept to understand is that we need to move the database and files from `Dev`->`Test`->`Live` once we're finished committing our changes to the `Dev` branch.
+A crucial concept to understand is that we need to move the database and files from `Dev`->`Test`->`Live` once we're finished committing our changes in the `Dev` branch.
 
-This is because some plugin or Wordpress updates modify the database. For example: If you've enabled a plugin in `Dev` and then configured it, it stores those configuration changes in the `Dev` database. If you were to only push your _file_ changes from `Dev`->`Test`->`Live`, the `Live` branch would have the new files, but would still be running on its own isolated version of its database. So it wouldn't have any of those configurations in place.
+This is because some plugin or Wordpress updates modify the database. For example: If you've enabled a plugin in `Dev` and then configured it, it stores those configuration changes in the `Dev` database. If you were to only push your _file_ changes from `Dev`->`Test`->`Live`, the `Live` branch would have the new files, but would still be running on its own isolated version of its database, so none of those configuration changes would be included.
 
-A separate issue here is that any content or changes that have been made on the `Live` branch while you've been working on `Dev` would be overwritten when you clone `Dev`->`Test`->`Live`. This is why we typically add new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
+A separate issue is that any content or changes that have been made on the `Live` branch while you've been working on `Dev` will be overwritten when you clone `Dev`->`Test`->`Live`. This is why we typically add and configure new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
 
 ### Cloning Dev to Test
 
