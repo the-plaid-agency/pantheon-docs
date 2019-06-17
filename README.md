@@ -26,18 +26,20 @@ Once your account is created, you will have full adminstrative control of the we
 
 Pantheon is unlike a traditional web host in that it isn't a shared hosting platform. It's more akin to what you'd find on Github. Each Pantheon website consists of a `Development`, `Test`, and `Live` branch of the website. Each of these branches has an entirely isolated filesystem and database. So don't think of them as being connected, but rather clones of each other.
 
-The Pantheon workflow is also rather unique, as you are unable to write to new or existing files on the Test or Live branches of the website. This means that you can't upload plugins or make changes to template or theme files directly on the Live site. You'll notice this is reflected in the Wordpress Dashboard, as certain options are removed, such as the `Theme Editor`, or the `Add New Plugin` button. However, once you work on the Dev branch, you'll notice all of these options are back in place where you'd expect them. Wordpress websites on Pantheon have custom plugins running in the background that help accomplish features like this.
+The Pantheon workflow is also rather unique, as you are unable to write to new or existing files on the `Test` or `Live` branches of the website. This means that you can't upload plugins or make changes to template or theme files directly on the `Live` site. You'll notice this is reflected in the Wordpress Dashboard, as certain options are removed, such as the `Theme Editor`, or the `Add New Plugin` button. However, once you switch to the `Dev` branch, you'll notice all of these options are back in place where you'd expect them. Wordpress websites on Pantheon have custom plugins running in the background that help accomplish features like this.
 
 ### Pantheon Branches
 
-Most of the time, your developer be working on the `Live` branch of the website. This is the branch of the website that external users visit, and it is also the branch that all the employees/staff/users login to in order to add and edit new content. The `Test` and `Dev` branches are used only for developers and/or system administrators. Here are the URLs for the dashboard and branches:
+Most of the time, people will be working on the `Live` branch of the website. This is the branch of the website that external users visit, and it is also the branch that all the developer/staff/users log in to in order to add and edit new content. The `Test` and `Dev` branches are used only for your developer. Here are the URLs for the dashboard and branches:
 
 - [Pantheon Dashboard](http://dev-websitename.pantheonsite.io/)
-- Dev Branch Exmaple: dev-websitename.pantheonsite.io
-- Test Branch Exmaple: test-websitename.pantheonsite.io
-- Live Branch Exmaple: www.websitename.org
+- Dev Branch Exmaple: `dev-websitename.pantheonsite.io`
+- Test Branch Exmaple: `test-websitename.pantheonsite.io`
+- Live Branch Exmaple: `www.websitename.org`
 
-### Adding new plugins or making file changes on Pantheon
+`websitename` will be replaced with the name of your website, and is used as a placeholder in this documentation.
+
+### Working in the Development Branch
 
 The first and most important thing to understand about Pantheon is that each branch is using its own isolated database and file system. That means that every time you're about to add new plugins or upgrade Wordpress in `Dev`, you need to clone a fresh copy of the database from the `Live` branch of the website to overwrite the existing `Dev` database and files. This is because as users are adding new content or interacting with the `Live` site, the `Dev` database stays frozen in time and falls further and further behind.
 
