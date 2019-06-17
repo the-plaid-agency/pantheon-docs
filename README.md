@@ -2,17 +2,6 @@
 
 Below is a "brief" guide that introduces you to Pantheon.
 
-## Account Setup
-
-In order to access the hosting environment for the Damar website, you will need an account for your develper on our hosting platform: Pantheon.
-
-- We will need to create a developer account for you in order to access the hosting database. If your developer doesn't have one yet, please contact us.
-- You will need to create a `SSH Key` if you haven't done so already and add it to your Pantheon account profile in order to connect to the website via Git or SFTP.
-
-Once your account is created, you will have full adminstrative control of the website.
-
-## Pantheon Docs
-
 I encourage you to go through the Pantheon Documentation yourself, as it's rather comprehensive, and will give you a better understanding of how it works than I can explain here. Pantheon is not a traditional shared web hosting service, so there is a bit of a learning curve. Have your developer review the documentation to learn more about how the system works.
 
 - [Pantheon Documentation](https://pantheon.io/docs/)
@@ -23,6 +12,15 @@ I encourage you to go through the Pantheon Documentation yourself, as it's rathe
 - [Explore Platform Architecture](https://pantheon.io/docs/platform/)
 - [Automate & Integrate](https://pantheon.io/docs/automate/)
 - [Quick Guides List](https://pantheon.io/docs/guides/)
+
+## Pantheon Account Setup
+
+In order to access the hosting environment for the Damar website, you will need an account for your develper on our hosting platform: Pantheon.
+
+- We will need to create a developer account for you in order to access the hosting database. If your developer doesn't have one yet, please contact us.
+- You will need to create a `SSH Key` if you haven't done so already and add it to your Pantheon account profile in order to connect to the website via Git or SFTP.
+
+Once your account is created, you will have full adminstrative control of the website.
 
 ## Introduction to Pantheon
 
@@ -39,7 +37,7 @@ Most of the time, your developer be working on the `Live` branch of the website.
 - Test Branch Exmaple: test-websitename.pantheonsite.io
 - Live Branch Exmaple: www.websitename.org
 
-## Adding new plugins or making file changes on Pantheon
+### Adding new plugins or making file changes on Pantheon
 
 The first and most important thing to understand about Pantheon is that each branch is using its own isolated database and file system. That means that every time you're about to add new plugins or upgrade Wordpress in `Dev`, you need to clone a fresh copy of the database from the `Live` branch of the website to overwrite the existing `Dev` database and files. This is because as users are adding new content or interacting with the `Live` site, the `Dev` database stays frozen in time and falls further and further behind.
 
@@ -59,7 +57,7 @@ At this point, you can upload new plugins to the site via SFTP. Or, you can add 
 
 Or if you prefer, you can clone the site using Git (always run a Git pull before starting new work or adding new files to ensure your local clone has the latest files downloaded). Once you're done, just commit and push the files to master.
 
-## Applying Upstream Updates
+### Applying Upstream Updates
 
 Whenever Wordpress has a version update, or Pantheon updates some code for the server (such as the PHP version), these will need to be applied in the `Dev` branch.
 
@@ -67,7 +65,7 @@ The site must be in Git mode in order to apply these updates. We recommend follo
 
 Once all your file edits are complete and committed, you're ready to move the files and database from `Dev`->`Test`->`Live` and complete the operation.
 
-## Concepts: Cloning Dev to Test to Live
+## Concept: Cloning Dev to Test to Live
 
 A crucial concept to understand is that we need to move the database and files from `Dev`->`Test`->`Live` once we're finished committing our changes to the `Dev` branch.
 
@@ -75,7 +73,7 @@ This is because some plugin or Wordpress updates modify the database. For exampl
 
 A separate issue here is that any content or changes that have been made on the `Live` branch while you've been working on `Dev` would be overwritten when you clone `Dev`->`Test`->`Live`. This is why we typically add new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
 
-## Cloning Dev to Test
+### Cloning Dev to Test
 
 Now that you understand these gotchas, you can begin the process of cloning your changes up to `Live`:
 
@@ -92,7 +90,7 @@ Now that you understand these gotchas, you can begin the process of cloning your
 
 After following these steps, you've essentially cloned `Dev` into `Test` perfectly. It now is using all the file changes you made in `Dev`, and the database has been copied and converted as well. You can check the `Test` website and ensure your changes worked correctly.
 
-## Cloning Test to Live
+### Cloning Test to Live
 
 Finally, you're ready to do a similar set of steps on the `Live` branch:
 
