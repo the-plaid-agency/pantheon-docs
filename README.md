@@ -75,57 +75,37 @@ This is because some plugin or Wordpress updates modify the database. For exampl
 
 A separate issue here is that any content or changes that have been made on the `Live` branch while you've been working on `Dev` would be overwritten when you clone `Dev`->`Test`->`Live`. This is why we typically add new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
 
-# Cloning Dev to Test to Live
+## Cloning Dev to Test
 
 Now that you understand these gotchas, you can begin the process of cloning your changes up to `Live`:
 
-1. First, click the Test tab at the top.
-2. If you committed your files correctly in Dev, you should see a yellow deploy box available to deploy under the Deploys tab. This Deploy is the culmination of all your individual commits from the Dev branch.
-3. Leave the "Pull files and the database from the Live environment?" box unchecked.
-4. Enter a message summarizing the changes you made under the "Deploy Log Message:" box.
-5. Once you hit "Deploy Code from Development to Test Environment" all of your code changes will be copied from Dev to the Test branch.
-6. Now, click on the "Database / Files" tab on the left.
-7. "From this Environment:" should be set to "Development".
-8. Leave "Clone Database" and "Clone Files" checked.
-9. All other settings can be left as-is, except you'll want to check "Clear Caches" at the bottom.
-10. Click "Clone the Database & the Files from Development into the Test Environment".
+1. First, click the `Test` tab at the top.
+2. If you committed your files correctly in `Dev`, you should see a yellow deploy box available to deploy under the `Deploys` tab. This deploy is the culmination of all your individual commits from the `Dev` branch.
+3. Leave the `Pull files and the database from the Live environment?` box unchecked.
+4. Enter a message summarizing the changes you made under the `Deploy Log Message:` box.
+5. Once you hit `Deploy Code from Development to Test Environment` all of your code changes will be copied from `Dev` to the `Test` branch.
+6. Now, click on the `Database / Files` tab on the left.
+7. `From this Environment:` should be set to `Development`.
+8. Leave `Clone Database` and `Clone Files` checked.
+9. All other settings can be left as-is, except you'll want to check `Clear Caches` at the bottom.
+10. Click `Clone the Database & the Files from Development into the Test Environment`.
 
-After following these steps, you've essentially cloned Dev into Test perfectly. It now is using all the file changes you made in Dev, and the database has been updated and converted as well. You can check the Test branch and ensure your changes worked correctly. Finally, you're ready to do a similar set of steps on the Live branch:
+After following these steps, you've essentially cloned `Dev` into `Test` perfectly. It now is using all the file changes you made in `Dev`, and the database has been copied and converted as well. You can check the `Test` website and ensure your changes worked correctly.
 
-1. First, click the Live tab at the top.
-2. If you've deployed your files correctly in Test, you should see a yellow deploy box available to deploy under the Deploys tab.
-3. Enter a message summarizing the changes you made under the "Deploy Log Message:" box.
-4. Once you hit "Deploy Code from Test to Live Environment" all of your code changes will be copied from Test to the Live branch.
-5. Now, click on the "Database / Files" tab on the left.
-6. "From this Environment:" should be set to "Development". Note that we are not using the Test database, we just clone from Dev again.
-7. Leave "Clone Database" and "Clone Files" checked.
-8. Leave the "From" box as-is.
-9. Make sure to change the "To:" box to www.inumc.org. This is an extremely important step. If you forget to do this, all the URLs in the database on the Live site will be dev-inumc.pantheonsite.io instead of the correct www.inumc.org URLs.
-10. For the "Convert URLs' Protocol to:" box just leave it as-is (no conversion).
-11. Check "Clear Caches" at the bottom.
-12. Click "Clone the Database & the Files from Development into the Live Environment".
-13. Finally, a warning box will appear. You'll need to type CLONE into it for it to work. This is warning you that any changes that have occurred in the Live database will be overwritten by the Dev database. This all comes down to timing. You want to add your plugins and updates in the evenings or early mornings before people at INUMC are modifying the Live database. And you don't want to work in Dev for days or even hours at a time. Make your changes, and copy the database quickly so that you aren't overwriting content or edits that have been made by users at INUMC.
+## Cloning Test to Live
 
-## User Permissions
+Finally, you're ready to do a similar set of steps on the `Live` branch:
 
-Unrelated to Pantheon, we use the User Role Editor plugin to configure different permission sets for the user roles that INUMC uses. I highly recommend reading the documentation and familiarizing yourself with how this plugin works, as it is crucial to the security and stability of the website at large.
-
-Something to keep in mind is that you only ever need to worry about editing the user roles that start with INUMC. So that includes these roles:
-
-- INUMC Admin - The specialized admin role that the top level admins at INUMC use. This has a lot of the bigger plugin options hidden to prevent these users from modifying or breaking the website. Ideally, no user at INUMC would ever be higher than this role.
-- INUMC Content Supervisor - A content editor role that can edit posts and pages. Cannot create new pages. Can create new posts.
-- INUMC Contributor - Another content editor role that can edit posts and pages. Cannot create new pages. Can create new posts.
-- INUMC District Content Manager - Another content editor role that can edit posts and pages. Cannot create new pages. Can create new posts.
-- INUMC Event Manager - Should only have access to features related to The Events Calendar plugin. Cannot create or edit new pages or posts.
-
-I recommend creating test accounts for yourself with each of these roles so you can test them when you add plugins or make changes to the website to ensure that no new options have been added in the Wordpress dashboard or Post/Page editing pages. You should also familiarize yourself with what access these accounts have right now, as this is what they need to remain as. This way you'll have a baseline understanding of their permission sets. This is an extremely important step.
-
-You will primarily be editing User Permissions under the "Users > User Role Editor" page. Be very careful when working here. A single misstep can ruin the website. I highly recommend testing your changes in the Deb branch before applying them to the Live branch of the site. Typically, you will be working under the "Admin Menu" and "Meta Boxes" buttons on the right. All the checkboxes in the middle of the screen will usually not need to be changed, as most plugins don't show up there, and most of those options are default Wordpress permissions that have already been set. The Admin Menu options refer to items that appear on the sidebar of the Wordpress dashboard, while the Meta Boxes menu refers to the white boxes that appear on Post and Page edit screens. Usually with these two steps, you can isolate and remove plugin capabilities from user roles.
-
-Something to note about the Admin Menu box is that it is set to only "Block items that are not selected". This means that by default, all menu features are blocked. You have to unblock them for them to appear. This is good because it usually means if you add a new plugin, it won't show up on the sidebar unless you specifically set it to here.
-
-Unfortunately, the Meta Boxes menu doesn't have this option, so you'll want to check and make sure to block anything that appears here if you add a new plugin that adds a new Meta box to the Post/Page editing screens. Another note about this screen: Never hit the X icons next to Meta Boxes. That deletes the permission entirely, and I don't know how to get it back. Just use the check boxes on the left-hand side if you need to block specific boxes from appearing.
-
-You can look through these menus and see how I've configured things to familiarize yourself further.
-
-All other user roles: Administrator, Author, Contributor, Editor, Employer, SEO Editor, SEO Manager, Subscriber, should pretty much never be modified. These are default Wordpress user roles, and we're not using them at INUMC. Any INUMC staff or members should be either the default Subscriber role, or they should be assigned one of the five INUMC roles we've created and curated listed above.
+1. First, click the `Live` tab at the top.
+2. If you've deployed your files correctly in `Test`, you should see a yellow deploy box available under the `Deploys` tab.
+3. Enter a message summarizing the changes you made under the `Deploy Log Message:` box.
+4. Once you hit `Deploy Code from Test to Live Environment`, all of your code changes will be copied from `Test` to the `Live` branch.
+5. Now, click on the `Database / Files` tab on the left.
+6. `From this Environment:` should be set to `Development`. Note that we are not using the `Test` database, we just clone from `Dev` again.
+7. Leave `Clone Database` and `Clone Files` checked.
+8. Leave the `From` box as-is.
+9. Make sure to change the `To:` box to `www.websitename.com`. This is an extremely important step. If you forget to do this, all the URLs in the database on the `Live` site will still be `dev-websitename.pantheonsite.io` instead of the correct `www.websitename.com` URLs. It is crucial to include the `www.` prefix.
+10. For the `Convert URLs' Protocol to:` box just leave it as-is (no conversion).
+11. Check `Clear Caches` at the bottom.
+12. Click `Clone the Database & the Files from Development into the Live Environment`.
+13. Finally, a warning box will appear. You'll need to type `CLONE` into it for it to work. This is warning you that any changes that have occurred in the Live database will be _overwritten_ by the `Dev` database. This all comes down to timing. You want to add your plugins and updates in the evenings or early mornings before users or staff are modifying the `Live` website. You don't want to work in `Dev` for days or even hours at a time. Make your changes, and copy the database _quickly_ so that you aren't overwriting content or edits that have been made by users while you were busy in `Dev`.
