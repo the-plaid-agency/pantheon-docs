@@ -34,10 +34,10 @@ The Pantheon workflow is also rather unique, as you are unable to write to new o
 
 Most of the time, your developer be working on the `Live` branch of the website. This is the branch of the website that external users visit, and it is also the branch that all the employees/staff/users login to in order to add and edit new content. The `Test` and `Dev` branches are used only for developers and/or system administrators. Here are the URLs for the dashboard and branches:
 
-- Pantheon Dashboard: [https://dashboard.pantheon.io/](http://dev-websitename.pantheonsite.io/)
-- Dev Branch Exmaple: http://dev-websitename.pantheonsite.io/
-- Test Branch Exmaple: http://test-websitename.pantheonsite.io/
-- Live Branch Exmaple: https://www.websitename.org/
+- [Pantheon Dashboard](http://dev-websitename.pantheonsite.io/)
+- Dev Branch Exmaple: dev-websitename.pantheonsite.io
+- Test Branch Exmaple: test-websitename.pantheonsite.io
+- Live Branch Exmaple: www.websitename.org
 
 ## Adding new plugins or making file changes on Pantheon
 
@@ -48,28 +48,36 @@ In order to do this, make sure you're on the `Dev` tab in the dashboard:
 1. Click the `Database / Files` tab on the left hand side.
 2. The `From This Environment` dropdown needs to be set to `Live`.
 3. Always leave `Clone Database` and `Clone Files` checked. In this case, `Files` refers to the media library of Wordpress, not theme or plugin files.
-4. The "From" tab needs to be set to www.inumc.org and not inumc.org or Live-inumc.pantheonsite.io. This is the most crucial and important step of the entire process. This is because Wordpress has hardcoded URLs in the database, and since you're copying from the Live site, those URLs are written as www.inumc.org instead of dev-inumc.pantheonsite.io. Essentially this operation scans the entire database for instances of www.inumc.org and rewrites them into dev-inumc.pantheonsite.io. This ensures that the Dev branch works just the same as the Live environment.
-5. The "To" tab can still be left alone as it only has one option.
-6. The "Convert URLs' Protocol to:" dropdown should be left as-is (no conversion).
-7. Once all the options are set, click "Clone the Database and the Files from Live into the Development Environment."
+4. The `From` tab needs to be set to `www.websitename.com` and not `websitename.com` or `live-websitename.pantheonsite.io`. It is important to include that `www.` prefix. This is the most crucial and important step of the entire process. This is because Wordpress has hardcoded URLs in the database, and since you're copying from the `Live` site, those URLs are written as `www.website.com` instead of `dev-websitename.pantheonsite.io`. Essentially this operation scans the entire database for instances of `www.websitename.com` and rewrites them into `dev-websitename.pantheonsite.io`.
+5. The `To` tab can still be left alone as it only has one option.
+6. The `Convert URLs Protocol to` dropdown should be left as-is (no conversion).
+7. Once all the options are set, click `Clone the Database and the Files from Live into the Development Environment`.
 
-This may tab 30 seconds - 1 minute to work. If you click the Workflows tab near the top right of the screen, you can see progress bars for this operation. Once it is complete, you have the most up-to-date copy of the Live site on the Dev branch. This means all the content that has been added by INUMC employees is now correctly in the Dev branch. The sites should look and operate identically if this was done correctly.
+This may take 30s-1min to work. If you click the `Workflows` tab near the top right of the screen, you can see progress bars for this operation. Once it is complete, you have the most up-to-date copy of the `Live` site cloned to the `Dev` branch. The sites should look and operate identically if this was done correctly.
 
-At this point, you can upload new plugins to the site via SFTP. Or, you can add them directly through the Plugins tab in the Wordpress dashboard. Once you've added or edited new files, they will show up under the Code tab under the Dev branch. You will need to make a commit message, and the commit these files.
+At this point, you can upload new plugins to the site via SFTP. Or, you can add them directly through the Plugins tab in the Wordpress dashboard. Once you've added or edited new files, they will show up under the `Code` tab under the `Dev` branch. You will need to make a commit message, and the commit these files.
 
-Or if you prefer, you can clone the site using Git (always run a Git pull before starting new work or adding new files to ensure your local clone has the latest and greatest files downloaded). Once you're done, just commit and push the files to master.
+Or if you prefer, you can clone the site using Git (always run a Git pull before starting new work or adding new files to ensure your local clone has the latest files downloaded). Once you're done, just commit and push the files to master.
 
-In order to pull upstream updates from Pantheon itself, such as new Wordpress versions or server changes, the site must be in Git mode in order to apply these updates. Just keep that in mind.
+## Applying Upstream Updates
 
-Once all your file edits are complete and committed, you're ready to move the files and database up from Dev -> Test -> Live and complete the operation.
+Whenever Wordpress has a version update, or Pantheon updates some code for the server (such as the PHP version), these will need to be applied in the `Dev` branch.
 
-## Moving from Dev to Test to Live
+The site must be in Git mode in order to apply these updates. We recommend following the steps above to clone the latest database and files from the `Live` site, committing those changes, and then switching the site to `Git` mode and applying those updates.
 
-A crucial thing to understand here is that we need to move the database from Dev to Test and then to Live once we're finished updating and adding our changes to the Dev branch. This is because some plugins or Wordpress version upgrades modify the database. Of course, if you've only added a new plugin and not enabled it yet, you can push only the code from Dev to Test to Live, and skip the database cloning process. But for example, if you've enabled a plugin in Dev and then configured it a bit, it stores those configuration changes in the database. If you were to only push your file changes from Dev->Test->Live, the Live branch would have the new files, but would still be running on its own isolated version of its database. So it wouldn't have any of those configurations in place.
+Once all your file edits are complete and committed, you're ready to move the files and database from `Dev`->`Test`->`Live` and complete the operation.
 
-A separate issue here is that any content or changes that have been made on the Live branch while you've been working on Dev, would be overwritten when you clone Dev over Live. This is why we typically add new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
+## Concepts: Cloning Dev to Test to Live
 
-Now that you understand these gotchas, you can begin the process of moving your changes up to Live:
+A crucial concept to understand is that we need to move the database and files from `Dev`->`Test`->`Live` once we're finished committing our changes to the `Dev` branch.
+
+This is because some plugin or Wordpress updates modify the database. For example: If you've enabled a plugin in `Dev` and then configured it, it stores those configuration changes in the `Dev` database. If you were to only push your _file_ changes from `Dev`->`Test`->`Live`, the `Live` branch would have the new files, but would still be running on its own isolated version of its database. So it wouldn't have any of those configurations in place.
+
+A separate issue here is that any content or changes that have been made on the `Live` branch while you've been working on `Dev` would be overwritten when you clone `Dev`->`Test`->`Live`. This is why we typically add new plugins to the site during off hours late at night or early in the morning when no other users are logged into the site making changes.
+
+# Cloning Dev to Test to Live
+
+Now that you understand these gotchas, you can begin the process of cloning your changes up to `Live`:
 
 1. First, click the Test tab at the top.
 2. If you committed your files correctly in Dev, you should see a yellow deploy box available to deploy under the Deploys tab. This Deploy is the culmination of all your individual commits from the Dev branch.
